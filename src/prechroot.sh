@@ -167,7 +167,7 @@ disk_format(){
         ok "Disk partitioning complete!"
         echo ""
         info "Final partition layout:"
-        fdisk -l $target_disk
+        lsblk $target_disk
     fi
 }
 
