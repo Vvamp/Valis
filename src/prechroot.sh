@@ -103,6 +103,12 @@ disk_format(){
     fi
     
     ok "Selected $target_disk for installation."
+    target_disk_partition_prefix=""
+    
+    if [[ $target_disk == *"nvme"* ]]; then
+      target_disk_partition_prefix="p"
+    fi
+
     
     manual_format=$(get_input_with_default "n" "Manually format disk with fdisk? (y/N)")
     if [[ $manual_format == 'y' ]]; then
@@ -151,15 +157,15 @@ disk_format(){
         
         # Format the partitions
         info "Formatting disk $target_disk..."
-        mkfs.fat -F32 ${target_disk}1 >>$LOG_FILE 2>>$LOG_FILE
+        mkfs.fat -F32 ${target_disk}${target_disk_partition_prefix}1 >>$LOG_FILE 2>>$LOG_FILE
         check_part_error
-        mkswap ${target_disk}2 >>$LOG_FILE 2>>$LOG_FILE
+        mkswap ${target_disk}${target_disk_partition_prefix}2 >>$LOG_FILE 2>>$LOG_FILE
         check_part_error
-        swapon ${target_disk}2 >>$LOG_FILE 2>>$LOG_FILE
+        swapon ${target_disk}${target_disk_partition_prefix}2 >>$LOG_FILE 2>>$LOG_FILE
         check_part_error
-        mkfs.ext4 ${target_disk}3 >>$LOG_FILE 2>>$LOG_FILE
+        mkfs.ext4 ${target_disk}${target_disk_partition_prefix}3 >>$LOG_FILE 2>>$LOG_FILE
         check_part_error
-        mkfs.ext4 ${target_disk}4 >>$LOG_FILE 2>>$LOG_FILE
+        mkfs.ext4 ${target_disk}${target_disk_partition_prefix}4 >>$LOG_FILE 2>>$LOG_FILE
         check_part_error
         ok "Disk formatted successfully."
         
@@ -175,11 +181,11 @@ disk_format(){
 mount_fs(){
     # Filesystem
     info "Mounting new filesystem for $target_disk..."
-    mount ${target_disk}3 /mnt
+    mount ${target_disk}${target_disk_partition_prefix}3 /mnt
     check_error
-    mount --mkdir ${target_disk}4 /mnt/home
+    mount --mkdir ${target_disk}${target_disk_partition_prefix}4 /mnt/home
     check_error
-    mount --mkdir ${target_disk}1 /mnt/boot
+    mount --mkdir ${target_disk}${target_disk_partition_prefix}1 /mnt/boot
     check_error
     ok "Successfully mounted filesystem."
 }
