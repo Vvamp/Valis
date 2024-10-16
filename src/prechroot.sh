@@ -187,7 +187,8 @@ mount_fs(){
 pacstrap_install(){
     info "Installing required packages..."
     # Modify as needed
-    pacstrap -K /mnt base linux-lts linux-lts-headers linux-firmware base-devel man-db man-pages neovim networkmanager network-manager-applet nm-connection-editor plasma-nm plasma sddm xorg-server xorg-apps git firefox pulseaudio pulseaudio-bluetooth efibootmgr grub zip unzip unrar wget curl kitty >>$LOG_FILE 2>>$LOG_FILE
+    pacstrap -K /mnt base linux-lts linux-lts-headers linux-firmware base-devel man-db man-pages neovim networkmanager network-manager-applet nm-connection-editor plasma-nm wayland xorg-xwayland plasma sddm git firefox pipewire pipewire-pulse efibootmgr grub zip unzip unrar wget curl kitty >>$LOG_FILE 2>>$LOG_FILE
+
     check_error
     ok "Successfully installed packages using pacstrap."
 
