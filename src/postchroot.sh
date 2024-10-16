@@ -117,9 +117,9 @@ finalize(){
     systemctl enable sddm.service
     check_error
     ok "Enabled sddm display manager service."
-    systemctl enable dhcpcd.service
+    systemctl enable NetworkManager.service
     check_error
-    ok "Enabled dhcpcd service."
+    ok "Enabled network manager service."
 
     ## Pacman settings
     # Enable Multilib
