@@ -19,7 +19,7 @@ You might want to use Git to download these scripts to the Arch Linux ISO, but y
 
 1. Download or mount(via usb) the source code in this repository.
 2. Make sure the install scripts have execute permissions `chmod +x /path/to/bash/scripts`.
-3. Run the pre-chroot script `bash /path/to/bash/script`.
+3. Run the pre-chroot script `bash /path/to/bash/script/prechroot.sh`.
 4. Follow the prompts, you can either configure the partitions manually or semi-automatically based on prompts.
 5. Done! The script handles everything. If everything goes right, you should reboot into a working Arch Linux installation with KDE/Plasma.
 
